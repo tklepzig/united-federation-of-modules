@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack").container
   .ModuleFederationPlugin;
 const path = require("path");
+const DashboardPlugin = require("@module-federation/dashboard-plugin");
 
 module.exports = {
   entry: "./src/index",
@@ -11,7 +12,7 @@ module.exports = {
     port: 3002,
   },
   output: {
-    publicPath: "http://localhost:3002/",
+    publicPath: "auto",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -40,6 +41,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new DashboardPlugin({
+      dashboardURL: "http://localhost:3000/api/update",
     }),
   ],
 };
